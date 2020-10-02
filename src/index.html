@@ -19,35 +19,27 @@
 
 
     <style>
+        /* *****************************************
+         * L O G O
+         * *****************************************/
+        .logo {
+            /* 
+             * For fallback if image does not show up
+             * The width & height is specified as attributes in <img> 
+             * ...so it doesn't controll the fallback text
+             *
+             */
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .page__logo {
+            text-align: center;
+            margin: 0;
+        }
+
         .html {
             height: 100%;
-        }
-
-        .tld {
-            margin: 0;
-            font-weight: 100;
-            font-size: 20vmin;
-            text-transform: uppercase;
-            line-height: 1;
-            animation: spaceLetters 10s 2s;
-        }
-
-        .sld {
-            font-size: 1.2rem;
-            text-indent: 5vmin;
-            text-transform: lowercase;
-        }
-
-        .sld::after {
-            content: "";
-            display: inline-block;
-            /* background-color: #cc0088; */
-            border: 3px solid #cc0088;
-            border-radius: 50%;
-            margin-left: 0.2rem;
-            margin-bottom: -0.5px;
-            width: 2px;
-            height: 2px;
         }
 
         .description {
@@ -62,16 +54,6 @@
             max-width: 300px;
             text-align: center;
             color: #cc0088;
-        }
-
-        .domain {
-            position: relative;
-        }
-
-        .domain__sld {
-            position: absolute;
-            left: 0;
-            top: -1rem;
         }
 
         .page {
@@ -90,15 +72,6 @@
 
         }
 
-        .page__header {
-            position: absolute;
-            z-index: 10;
-        }
-
-        .page__domain {
-            margin: 0 0 0.5rem 0;
-        }
-
         .page__illustration {
             transform: translateX(20px);
         }
@@ -108,31 +81,13 @@
             margin-bottom: 1.5rem;
         }
 
-
-        @keyframes spaceLetters {
-            0% { letter-spacing: 3rem; }
-
-            /* 8% { letter-spacing: 1.5rem; } */
-
-            23% { letter-spacing: -0.75rem; }
-
-            46% { letter-spacing: 0.19rem; }
-
-            69% { letter-spacing: -0.05rem; }
-
-            92% { letter-spacing: 0.01rem; }
-
-            100% { letter-spacing: 0; }
-        }
-
     </style>
 </head>
 <body class="page">
 
-    <header class="page__header">
-        <h1 class="domain page__domain">
-            <span class="tld">Africa</span>
-            <span class="sld domain__sld">Archive</span>
+    <header>
+        <h1 class="logo page__logo">
+            <img src="./images/aa-logo.png" width="60" height="60" alt="Archive Africa">
         </h1>
         <p class="description">Conveying the african story <br> with interractive visualizations</p>
     </header>
