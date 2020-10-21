@@ -203,6 +203,35 @@
     .country:hover text, .africa__country:hover text {
       fill: darkblue;
     }
+
+
+    .content-section {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+    }
+
+    .article {
+        padding: 1.5rem;
+        background: antiquewhite;
+        border-radius: 1rem;
+        margin: 0.25rem;
+    }
+
+    .article__summary {
+        font-size: 2rem;
+        font-weight: 900;
+        text-align: center;
+        margin-bottom: 0.5rem;
+    }
+
+    .article__title {
+        margin: 0;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 0.12rem;
+        font-size: 0.875rem;
+    }
     </style>
 </head>
 <body class="page">
@@ -295,6 +324,24 @@
                 </div>
             </dl>
         </details>
+    </div>
+
+    <div>
+        <h2 class="text-center">Explore Africa</h2>
+        <dl class="content-section">
+            <div class="article">
+                <dt class="article__summary">22M+</dt>
+                <dd class="article__title">Population</dd>
+            </div>
+            <div class="article">
+                <dt class="article__summary">22M+</dt>
+                <dd class="article__title">Population</dd>
+            </div>
+            <div class="article">
+                <dt class="article__summary">22M+</dt>
+                <dd class="article__title">Population</dd>
+            </div>
+        </dl>
     </div>
 
     <a class="link page__link" href="https://theafricaninfo.substack.com/p/coming-soon?r=3al6k&utm_campaign=post&utm_medium=web&utm_source=copy">Get 5 <strong>facts</strong> about Africa you probably don't know, every week!</a>
