@@ -19,9 +19,53 @@
 
 
     <style>
-        /* *****************************************
-         * L O G O
-         * *****************************************/
+
+        /********************************
+            U T I L I T I E S 
+        *********************************/
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .visibility_hidden {
+            visibility: hidden;
+            position: absolute;
+            top: -9999rem;
+        }
+
+        .content-gap {
+            visibility: hidden;
+        }
+
+        .h2 {
+            text-align: center;
+            font: bold 2rem/1.5 overlock;
+            margin: 0 0 1.5rem 0;
+        }
+
+
+
+
+        .homepage {
+            font: 1rem/1.5 -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+/* Let footer take remaining space */
+            display: flex;
+            height: 100%;
+            flex-direction: column;
+            width: 100%;
+            /* overflow: hidden; */
+        }
+
+        .homepage__header {
+            text-align: center;
+            margin: 3rem auto;
+            color: rgb(103, 116, 137);
+        }
+
         .logo {
             /* 
              * For fallback if image does not show up
@@ -33,9 +77,148 @@
             font-weight: bold;
         }
 
-        .page__logo {
+
+
+        .country-section {
+            margin-bottom: 3rem;
+        }
+        
+        .country-summary {
             text-align: center;
+
+            position: relative;
+            left: -0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .country-summary::-webkit-details-marker {
+            color: #f3f3f3; 
+        }
+
+        .country-summary__count {
+            background: #f3f3f3;
+            padding: 0.3rem 1rem 0.4rem;
+            border-radius: 0.3rem;
+        }
+
+        .country-region {
+            flex: 0 0 10.5rem;
+            height: 15rem;
+            overflow-y: scroll;
+            margin: 0 0.5rem 1rem;
+            background-color: #f3f3f3;
+            border-radius: 0.5rem;
+            padding-bottom: 1.5rem;
+        }
+
+        .country-region dd {
+            padding: 0.5rem 1rem;
+            line-height: 1;
+        }
+
+        .country-region dt {
+            background-color: #eee;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            position: sticky;
+
+            /* -1px instead of 0 because of font blurriness & overflow of dt element at the top */
+            top: -1px;  
+        } 
+
+        .country-view-switch {
+            border: 4px solid white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            background: #ccc;
+
+            /* Center Self */
+            display: block;
+            margin: auto;
+            
+            /* Overlay another section */
+            position: relative;
+            z-index: 10;
+        }
+
+
+
+
+
+        .main-nav-wrapper {
+            background: #efefef;
+            padding: 3rem 0 6rem;
+            
+            position: relative;
+
+            /* For Overflown ::after */
+            overflow: hidden;
+        }
+
+        .main-nav-wrapper::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            border-left: 100vw solid transparent;
+            border-bottom: 3rem solid white;
+        }
+
+        .main-nav {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+        }
+
+        .main-nav__item {
+            padding: 0.5rem;
+            background: #ccc;
+            border-radius: 1rem;
+            margin: 0.25rem;
+            width: 8rem;
+            height: 8rem;
+            display: flex;
+            flex-flow: column wrap;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .main-nav__item-value {
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .main-nav__item-title {
             margin: 0;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.12rem;
+            font-size: 0.875rem;
+        }
+
+
+
+
+        .faq-wrapper {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .faq {
+            padding: 2rem 3rem;
+            margin-bottom: 2rem;
+        }
+
+
+
+
+
+        /* M A P */
+
+        .world-map {
+            width: 90vw;
+            max-width: 32rem;
         }
 
         .africa-map text {
@@ -72,280 +255,287 @@
             height: 100%;
         }
 
-        .description {
-            text-align: center;
-            line-height: 1.5;
-            margin: 0;
-            color: rgb(103, 116, 137);
-        }
-        
-        .link {
-            text-decoration: none;
-            max-width: 300px;
-            text-align: center;
-            color: #cc0088;
-        }
 
-        .page {
-            margin: 0;
+
+
+        .country_carousel-view {
             display: flex;
-            flex-flow: column nowrap;
-            min-height: 100%;
-            justify-content: center;
-            align-items: center;
-
-
-            font-family: Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            font-size: 1.125rem;
-            background: #f8fafc;
-            color: #1b202d;
-
+            overflow: auto;
         }
 
-        .page__illustration {
-            transform: translateX(20px);
-        }
-
-        .page__link {
-            transform: translateY(30px);
-            margin-bottom: 1.5rem;
-        }
-
-
-
-        .text-center {
-            text-align: center;
-        }
-
-        .africa {
-            display: flex;
-            width: 100vw;
-            overflow-x: scroll;
-            margin: 0;
-            padding: 1.5rem 0;
-            
-        }
-
-        .africa::before,
-        .africa::after {
+        .country_carousel-view::before,
+        .country_carousel-view::after {
             content: "";
             flex: 0 0 1.5rem;
         }
 
-        .africa-region {
-            flex: 0 0 200px;
-            height:300px;
-            overflow-y: scroll;
-            margin: 0 0.5rem;
-            background-color: #f3f3f3;
-            border-radius: 0.5rem;
-            padding-bottom: 1.5rem;
-            position: relative;
-            box-sizing: border-box;
-        }
-
-        .africa-region dd {
-            margin: 0;
-            padding: 0.5rem 1rem;
-        }
-
-        .africa-region dt {
-            background-color: #eee;
-            padding: 1rem;
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-            position: sticky;
-
-            /* -1px instead of 0 because of font blurriness & overflow of dt element at the top */
-            top: -1px;  
-        } 
-
-        .african-summary {
-            /* list-style-type: none;
-            display: inline-flex;
-            margin: 0; */
-            text-align: center;
-            list-style: none;
-        }
-
-        .african-summary__item {
-            background: #f3f3f3;
-            padding: 0.3rem 1rem 0.4rem;
-            border-radius: 0.3rem;
-        }
-
-        .content-gap {
-            visibility: hidden;
-        }
+        
 
         .country, .africa__country {
-      fill: lightgreen;
-      stroke: black;
-      stroke-width: 0.1px;
-      cursor: pointer; 
-    }
+            fill: lightgreen;
+            stroke: black;
+            stroke-width: 0.1px;
+            cursor: pointer; 
+        }
 
-    .africa__country {
-      fill: url('#pattern')
-    }
+        .africa__country {
+            fill: url('#pattern')
+        }
 
-    .country text, .africa__country text {
-      fill: black;
-      stroke-width: 0;
-      cursor: pointer; 
-      background-color: darkgreen;
-    }
+        .country text, .africa__country text {
+            fill: black;
+            stroke-width: 0;
+            cursor: pointer; 
+            background-color: darkgreen;
+        }
 
-    .country:hover, .africa__country:hover {
-      fill: red;
-    }
+        .country:hover, .africa__country:hover {
+            fill: red;
+        }
 
-    .country:hover text, .africa__country:hover text {
-      fill: darkblue;
-    }
+        .country:hover text, .africa__country:hover text {
+            fill: darkblue;
+        }
 
 
-    .content-section {
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: center;
-    }
+    
 
-    .article {
-        padding: 1.5rem;
-        background: antiquewhite;
-        border-radius: 1rem;
-        margin: 0.25rem;
-    }
+        .footer {
+            padding: 3rem;
+            background: #444;
+            color: white;
 
-    .article__summary {
-        font-size: 2rem;
-        font-weight: 900;
-        text-align: center;
-        margin-bottom: 0.5rem;
-    }
+            flex: 1;
+        }
 
-    .article__title {
-        margin: 0;
-        text-align: center;
-        text-transform: uppercase;
-        letter-spacing: 0.12rem;
-        font-size: 0.875rem;
-    }
+        @media screen and (min-width: 1000px) {
+
+            .homepage__header {
+                display: flex;
+                margin: 2rem 3rem 0;
+                text-align: left;
+            }
+
+            .logo {
+                margin-right: 1rem;
+                position: relative;
+                top: -0.4rem;
+            }
+
+            .country-section {
+                margin-bottom: 0;
+            }
+
+            .country_carousel-view {
+                width: 40.5rem;
+                flex-flow: row wrap;
+                justify-content: flex-end;
+            }
+
+            .country_carousel-view::after,
+            .country_carousel-view::before {
+                flex: 0 0 0;
+            }
+
+            .country-summary {
+                left: 0;
+            }
+
+            .main-nav {
+                max-width: 22rem;
+            }
+
+            .country-section {
+                position: relative;
+                top: -3rem;
+            }
+
+            .country-view-switch {
+                position: absolute;
+                top: -0.5rem;
+                right: -1.5rem;
+            }
+
+            
+
+            .data-section {
+                display: flex;
+                width: 100%;
+                padding: 1.5rem 5%;
+                justify-content: space-between;
+                align-items: center;
+                flex-flow: row-reverse nowrap;
+            }
+
+            .main-nav-wrapper {
+                background: transparent;
+            }
+
+
+            .first-fold {
+                background: #fafafa;
+                position: relative;
+            }
+
+            .first-fold::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                border-left: 90vw solid transparent;
+                border-bottom: 3rem solid white;
+            }
+        }
     </style>
 </head>
-<body class="page">
+<body class="homepage">
 
-    <header>
-        <h1 class="logo page__logo">
-            <img src="./images/aa-logo.png" width="60" height="60" alt="Archive Africa">
-        </h1>
-        <p class="description">Conveying the african story <br> with interractive visualizations</p>
-    </header>
-
-    <div id="country-section">
-        <h2 class="text-center">African Countries by Region</h2>
-        <details id="country-container" open>
-            <summary class="african-summary"> <span class="african-summary__item">5 Regions</span> <span class="content-gap">, </span> <span class="african-summary__item">55 Countries</span>
-            </summary>
-            <dl id="country-data" class="africa">
-                <div class="africa-region">
-                    <dt>Central Africa</dt>
-                    <dd>Burundi</dd>
-                    <dd>Cameroon</dd>
-                    <dd>Central African Republic</dd>
-                    <dd>Chad</dd>
-                    <dd>Congo Republic</dd>
-                    <dd>Equitorial Guinea</dd>
-                    <dd>Gabon</dd>
-                    <dd>Sao Tome and Principe</dd>
-                </div>
+    <div class="first-fold">
+        <header class="homepage__header">
+            <h1 class="logo">
+                <img src="./images/aa-logo.png" width="60" height="60" alt="Archive Africa">
+            </h1>
+            <p>Conveying the african story <br> with interractive visualizations</p>
+        </header>
     
-                <div class="africa-region">
-                    <dt>Eastern Africa</dt>
-                    <dd>Comoros</dd>
-                    <dd>Djibouti</dd>
-                    <dd>Eritrea</dd>
-                    <dd>Ethiopia</dd>
-                    <dd>Kenya</dd>
-                    <dd>Madagascar</dd>
-                    <dd>Mauritius</dd>
-                    <dd>Rwanda</dd>
-                    <dd>Seychelles</dd>
-                    <dd>Somalia</dd>
-                    <dd>South Sudan</dd>
-                    <dd>Sudan</dd>
-                    <dd>Tanzania</dd>
-                    <dd>Uganda</dd>
-                </div>
-    
-                <div class="africa-region">
-                    <dt>Northern Africa</dt>
-                    <dd>Algeria</dd>
-                    <dd>Egypt</dd>
-                    <dd>Libya</dd>
-                    <dd>Mauritania</dd>
-                    <dd>Morocco</dd>
-                    <dd>Sahrawi Republic</dd>
-                    <dd>Tunisia</dd>
-                </div>
-    
-                <div class="africa-region">
-                    <dt>Southern Africa</dt>
-                    <dd>Angola</dd>
-                    <dd>Botswana</dd>
-                    <dd>Eswatini</dd>
-                    <dd>Lesotho</dd>
-                    <dd>Malawi</dd>
-                    <dd>Mozambique</dd>
-                    <dd>Namibia</dd>
-                    <dd>South Africa</dd>
-                    <dd>Zambia</dd>
-                    <dd>Zimbabwe</dd>
-                </div>
-    
-                <div class="africa-region">
-                    <dt>Western Africa</dt>
-                    <dd>Benin</dd>
-                    <dd>Burkina Faso</dd>
-                    <dd>Cabo Verde</dd>
-                    <dd>Cote d'Ivoire</dd>
-                    <dd>Gambia</dd>
-                    <dd>Ghana</dd>
-                    <dd>Guinea</dd>
-                    <dd>Guinea-Bissau</dd>
-                    <dd>Liberia</dd>
-                    <dd>Mali</dd>
-                    <dd>Niger</dd>
-                    <dd>Nigeria</dd>
-                    <dd>Senegal</dd>
-                    <dd>Sierra Leone</dd>
-                    <dd>Togo</dd>
-                </div>
-            </dl>
-        </details>
+        <div class="data-section">
+            <section id="country-section" class="country-section">
+                <h2 class="text-center visibility_hidden ">African Countries by Region</h2>
+                <details open>
+                    <summary class="country-summary"> <span class="country-summary__count">5 Regions</span> <span class="content-gap">, </span> <span class="country-summary__count">55 Countries</span>
+                    </summary>
+                    <div id="country-view">
+                        <dl id="country_carousel-view" class="country_carousel-view">
+                            <div class="country-region">
+                                <dt>Central Africa</dt>
+                                <dd>Burundi</dd>
+                                <dd>Cameroon</dd>
+                                <dd>Central African Republic</dd>
+                                <dd>Chad</dd>
+                                <dd>Congo Republic</dd>
+                                <dd>Equitorial Guinea</dd>
+                                <dd>Gabon</dd>
+                                <dd>Sao Tome and Principe</dd>
+                            </div>
+                
+                            <div class="country-region">
+                                <dt>Eastern Africa</dt>
+                                <dd>Comoros</dd>
+                                <dd>Djibouti</dd>
+                                <dd>Eritrea</dd>
+                                <dd>Ethiopia</dd>
+                                <dd>Kenya</dd>
+                                <dd>Madagascar</dd>
+                                <dd>Mauritius</dd>
+                                <dd>Rwanda</dd>
+                                <dd>Seychelles</dd>
+                                <dd>Somalia</dd>
+                                <dd>South Sudan</dd>
+                                <dd>Sudan</dd>
+                                <dd>Tanzania</dd>
+                                <dd>Uganda</dd>
+                            </div>
+                
+                            <div class="country-region">
+                                <dt>Northern Africa</dt>
+                                <dd>Algeria</dd>
+                                <dd>Egypt</dd>
+                                <dd>Libya</dd>
+                                <dd>Mauritania</dd>
+                                <dd>Morocco</dd>
+                                <dd>Sahrawi Republic</dd>
+                                <dd>Tunisia</dd>
+                            </div>
+                
+                            <div class="country-region">
+                                <dt>Southern Africa</dt>
+                                <dd>Angola</dd>
+                                <dd>Botswana</dd>
+                                <dd>Eswatini</dd>
+                                <dd>Lesotho</dd>
+                                <dd>Malawi</dd>
+                                <dd>Mozambique</dd>
+                                <dd>Namibia</dd>
+                                <dd>South Africa</dd>
+                                <dd>Zambia</dd>
+                                <dd>Zimbabwe</dd>
+                            </div>
+                
+                            <div class="country-region">
+                                <dt>Western Africa</dt>
+                                <dd>Benin</dd>
+                                <dd>Burkina Faso</dd>
+                                <dd>Cabo Verde</dd>
+                                <dd>Cote d'Ivoire</dd>
+                                <dd>Gambia</dd>
+                                <dd>Ghana</dd>
+                                <dd>Guinea</dd>
+                                <dd>Guinea-Bissau</dd>
+                                <dd>Liberia</dd>
+                                <dd>Mali</dd>
+                                <dd>Niger</dd>
+                                <dd>Nigeria</dd>
+                                <dd>Senegal</dd>
+                                <dd>Sierra Leone</dd>
+                                <dd>Togo</dd>
+                            </div>
+                        </dl>
+                    </div>
+                    <button class="country-view-switch" id="country-view-switch">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+                    </button>
+                </details>
+            </section>
+        
+            <div class="main-nav-wrapper">
+                <h2 class="h2">Explore Africa</h2>
+                <nav class="main-nav">
+                    <a href="" class="main-nav__item">
+                        <span class="main-nav__item-value">22M+</span>
+                        <span class="main-nav__item-title">Population</span>
+                    </a>
+                    <a href="" class="main-nav__item">
+                        <span class="main-nav__item-value">22M+</span>
+                        <span class="main-nav__item-title">Population</span>
+                    </a>
+                    <a href="" class="main-nav__item">
+                        <span class="main-nav__item-value">22M+</span>
+                        <span class="main-nav__item-title">Population</span>
+                    </a>
+                    <a href="" class="main-nav__item">
+                        <span class="main-nav__item-value">22M+</span>
+                        <span class="main-nav__item-title">Population</span>
+                    </a>
+                </nav>
+            </div>
+        </div>
     </div>
 
-    <div>
-        <h2 class="text-center">Explore Africa</h2>
-        <dl class="content-section">
-            <div class="article">
-                <dt class="article__summary">22M+</dt>
-                <dd class="article__title">Population</dd>
-            </div>
-            <div class="article">
-                <dt class="article__summary">22M+</dt>
-                <dd class="article__title">Population</dd>
-            </div>
-            <div class="article">
-                <dt class="article__summary">22M+</dt>
-                <dd class="article__title">Population</dd>
-            </div>
-        </dl>
+    <div class="faq">
+        <h2 class="h2">FAQ</h2>
+
+        <div class="faq-wrapper">
+            <details>
+                <summary>Is Africa a Country?</summary>
+                No. Africa is a continent. In fact, it is the second largest continent in both Land Area & Population
+            </details>
+            <details>
+                <summary>Is Africa a Country?</summary>
+                No. Africa is a continent. In fact, it is the second largest continent in both Land Area & Population
+            </details>
+            <details>
+                <summary>Is Africa a Country?</summary>
+                No. Africa is a continent. In fact, it is the second largest continent in both Land Area & Population
+            </details>
+            <details>
+                <summary>Is Africa a Country?</summary>
+                No. Africa is a continent. In fact, it is the second largest continent in both Land Area & Population
+            </details>
+        </div>
     </div>
 
-    <a class="link page__link" href="https://theafricaninfo.substack.com/p/coming-soon?r=3al6k&utm_campaign=post&utm_medium=web&utm_source=copy">Get 5 <strong>facts</strong> about Africa you probably don't know, every week!</a>
-
+    <footer class="footer">
+        Footer
+    </footer>
 
     <script src="/scripts/d3.min.js"></script>
     <script src="/scripts/topojson.min.js"></script>
@@ -355,13 +545,15 @@
 
         window.onload = () => {
 
-            const toggleButton = d3.select('#country-section').append('button')
-                .attr('id', 'toggle-country')
-                .attr('class', 'toggle-country')
-                .text('Switch')
+            d3.select('#toggle-container').style('display', 'block')
+            d3.select('.main-nav-wrapper').style('margin-top', '-4rem')
+
+            const toggleButton = d3.select('#country-view-switch')
+            const isLargeScreen = window.matchMedia('(min-width: 1024px)').matches
+
             
             
-            const countryData = d3.select('#country-data')
+            const countryData = d3.select('#country_carousel-view')
 
             toggleButton.on('click', () => {
                 buttonIsClicked = !buttonIsClicked
@@ -376,10 +568,12 @@
                 }
             })
 
-            const countryVisual = d3.select('#country-container').append('svg')
+            const countryVisual = d3.select('#country-view').append('svg')
                 .attr('viewBox', '0 0 500 500')
-                .attr('height', '360px')
+                .attr('class', 'world-map')
                 .style('display', 'none')
+                .style('margin', 'auto')
+                .style('transform', 'translateX(-1rem)')
 
             let totalCountriesInAfrica = 55
             countryVisual.append('pattern')
@@ -522,7 +716,7 @@
             africaCountries.append('path')
                 .attr('d', pathGenerator)
                 .append('title')
-                .text(d => {console.log(countryNames[d.id][0] + ' - ' + d.id); return countryNames[d.id][0]})
+                .text(d => countryNames[d.id][0])
             africaCountries.append('circle')
                 .attr('r', 2)
                 .attr('cx', d => pathGenerator.centroid(d)[0])
