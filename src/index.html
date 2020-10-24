@@ -1,392 +1,25 @@
 <!DOCTYPE html>
 <html lang="en" class="html">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Africa Achive</title>
     <meta name="description" content="Conveying the african story with interractive visualizations">
     <meta name="theme-color" content="#f8fafc" />
-    
+    <link rel="stylesheet" href="/styles/index.css">
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-176103387-2"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-      gtag('config', 'UA-176103387-2');
+        gtag('config', 'UA-176103387-2');
     </script>
-
-
-    <style>
-
-        /********************************
-            U T I L I T I E S 
-        *********************************/
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        .visibility_hidden {
-            visibility: hidden;
-            position: absolute;
-            top: -9999rem;
-        }
-
-        .content-gap {
-            visibility: hidden;
-        }
-
-        .h2 {
-            text-align: center;
-            font: bold 2rem/1.5 overlock;
-            margin: 0 0 1.5rem 0;
-        }
-
-
-
-
-        .homepage {
-            font: 1rem/1.5 -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-
-/* Let footer take remaining space */
-            display: flex;
-            height: 100%;
-            flex-direction: column;
-            width: 100%;
-            /* overflow: hidden; */
-        }
-
-        .homepage__header {
-            text-align: center;
-            margin: 3rem auto;
-            color: rgb(103, 116, 137);
-        }
-
-        .logo {
-            /* 
-             * For fallback if image does not show up
-             * The width & height is specified as attributes in <img> 
-             * ...so it doesn't controll the fallback text
-             *
-             */
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-
-
-        .country-section {
-            margin-bottom: 3rem;
-        }
-        
-        .country-summary {
-            text-align: center;
-
-            position: relative;
-            left: -0.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .country-summary::-webkit-details-marker {
-            color: #f3f3f3; 
-        }
-
-        .country-summary__count {
-            background: #f3f3f3;
-            padding: 0.3rem 1rem 0.4rem;
-            border-radius: 0.3rem;
-        }
-
-        .country-region {
-            flex: 0 0 10.5rem;
-            height: 15rem;
-            overflow-y: scroll;
-            margin: 0 0.5rem 1rem;
-            background-color: #f3f3f3;
-            border-radius: 0.5rem;
-            padding-bottom: 1.5rem;
-        }
-
-        .country-region dd {
-            padding: 0.5rem 1rem;
-            line-height: 1;
-        }
-
-        .country-region dt {
-            background-color: #eee;
-            padding: 1rem;
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-            position: sticky;
-
-            /* -1px instead of 0 because of font blurriness & overflow of dt element at the top */
-            top: -1px;  
-        } 
-
-        .country-view-switch {
-            border: 4px solid white;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            background: #ccc;
-
-            /* Center Self */
-            display: block;
-            margin: auto;
-            
-            /* Overlay another section */
-            position: relative;
-            z-index: 10;
-        }
-
-
-
-
-
-        .main-nav-wrapper {
-            background: #efefef;
-            padding: 3rem 0 6rem;
-            
-            position: relative;
-
-            /* For Overflown ::after */
-            overflow: hidden;
-        }
-
-        .main-nav-wrapper::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            border-left: 100vw solid transparent;
-            border-bottom: 3rem solid white;
-        }
-
-        .main-nav {
-            display: flex;
-            flex-flow: row wrap;
-            justify-content: center;
-        }
-
-        .main-nav__item {
-            padding: 0.5rem;
-            background: #ccc;
-            border-radius: 1rem;
-            margin: 0.25rem;
-            width: 8rem;
-            height: 8rem;
-            display: flex;
-            flex-flow: column wrap;
-            justify-content: center;
-            text-decoration: none;
-        }
-
-        .main-nav__item-value {
-            font-size: 2rem;
-            text-align: center;
-        }
-
-        .main-nav__item-title {
-            margin: 0;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 0.12rem;
-            font-size: 0.875rem;
-        }
-
-
-
-
-        .faq-wrapper {
-            max-width: 600px;
-            margin: auto;
-        }
-
-        .faq {
-            padding: 2rem 3rem;
-            margin-bottom: 2rem;
-        }
-
-
-
-
-
-        /* M A P */
-
-        .world-map {
-            width: 90vw;
-            max-width: 32rem;
-        }
-
-        .africa-map text {
-            font-size: 0.5rem;
-            fill: #677489;
-        }
-
-        .africa-map path {
-            fill: url("#pattern");
-        }
-
-        .africa-map circle {
-            fill: #677489;
-        }
-        
-        .ctry-marker-line {
-            stroke: #677489;
-            stroke-width: 1;
-        }
-
-        .ctry:hover path {
-            fill: red;
-        }
-
-        .ctry:hover circle {
-            fill: rgb(255, 0, 0, 0.1);
-        }
-
-        .ctry:hover text {
-            fill: rebeccapurple;
-        }
-
-        .html {
-            height: 100%;
-        }
-
-
-
-
-        .country_carousel-view {
-            display: flex;
-            overflow: auto;
-        }
-
-        .country_carousel-view::before,
-        .country_carousel-view::after {
-            content: "";
-            flex: 0 0 1.5rem;
-        }
-
-        
-
-        .country, .africa__country {
-            fill: lightgreen;
-            stroke: black;
-            stroke-width: 0.1px;
-            cursor: pointer; 
-        }
-
-        .africa__country {
-            fill: url('#pattern')
-        }
-
-        .country text, .africa__country text {
-            fill: black;
-            stroke-width: 0;
-            cursor: pointer; 
-            background-color: darkgreen;
-        }
-
-        .country:hover, .africa__country:hover {
-            fill: red;
-        }
-
-        .country:hover text, .africa__country:hover text {
-            fill: darkblue;
-        }
-
-
-    
-
-        .footer {
-            padding: 3rem;
-            background: #444;
-            color: white;
-
-            flex: 1;
-        }
-
-        @media screen and (min-width: 1000px) {
-
-            .homepage__header {
-                display: flex;
-                margin: 2rem 3rem 0;
-                text-align: left;
-            }
-
-            .logo {
-                margin-right: 1rem;
-                position: relative;
-                top: -0.4rem;
-            }
-
-            .country-section {
-                margin-bottom: 0;
-            }
-
-            .country_carousel-view {
-                width: 40.5rem;
-                flex-flow: row wrap;
-                justify-content: flex-end;
-            }
-
-            .country_carousel-view::after,
-            .country_carousel-view::before {
-                flex: 0 0 0;
-            }
-
-            .country-summary {
-                left: 0;
-            }
-
-            .main-nav {
-                max-width: 22rem;
-            }
-
-            .country-section {
-                position: relative;
-                top: -3rem;
-            }
-
-            .country-view-switch {
-                position: absolute;
-                top: -0.5rem;
-                right: -1.5rem;
-            }
-
-            
-
-            .data-section {
-                display: flex;
-                width: 100%;
-                padding: 1.5rem 5%;
-                justify-content: space-between;
-                align-items: center;
-                flex-flow: row-reverse nowrap;
-            }
-
-            .main-nav-wrapper {
-                background: transparent;
-            }
-
-
-            .first-fold {
-                background: #fafafa;
-                position: relative;
-            }
-
-            .first-fold::after {
-                content: '';
-                position: absolute;
-                bottom: 0;
-                border-left: 90vw solid transparent;
-                border-bottom: 3rem solid white;
-            }
-        }
-    </style>
 </head>
+
 <body class="homepage">
 
     <div class="first-fold">
@@ -396,12 +29,13 @@
             </h1>
             <p>Conveying the african story <br> with interractive visualizations</p>
         </header>
-    
+
         <div class="data-section">
             <section id="country-section" class="country-section">
                 <h2 class="text-center visibility_hidden ">African Countries by Region</h2>
                 <details open>
-                    <summary class="country-summary"> <span class="country-summary__count">5 Regions</span> <span class="content-gap">, </span> <span class="country-summary__count">55 Countries</span>
+                    <summary class="country-summary"> <span class="country-summary__count">5 Regions</span> <span
+                            class="content-gap">, </span> <span class="country-summary__count">55 Countries</span>
                     </summary>
                     <div id="country-view">
                         <dl id="country_carousel-view" class="country_carousel-view">
@@ -416,7 +50,7 @@
                                 <dd>Gabon</dd>
                                 <dd>Sao Tome and Principe</dd>
                             </div>
-                
+
                             <div class="country-region">
                                 <dt>Eastern Africa</dt>
                                 <dd>Comoros</dd>
@@ -434,7 +68,7 @@
                                 <dd>Tanzania</dd>
                                 <dd>Uganda</dd>
                             </div>
-                
+
                             <div class="country-region">
                                 <dt>Northern Africa</dt>
                                 <dd>Algeria</dd>
@@ -445,7 +79,7 @@
                                 <dd>Sahrawi Republic</dd>
                                 <dd>Tunisia</dd>
                             </div>
-                
+
                             <div class="country-region">
                                 <dt>Southern Africa</dt>
                                 <dd>Angola</dd>
@@ -459,7 +93,7 @@
                                 <dd>Zambia</dd>
                                 <dd>Zimbabwe</dd>
                             </div>
-                
+
                             <div class="country-region">
                                 <dt>Western Africa</dt>
                                 <dd>Benin</dd>
@@ -481,11 +115,15 @@
                         </dl>
                     </div>
                     <button class="country-view-switch" id="country-view-switch">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                        </svg>
                     </button>
                 </details>
             </section>
-        
+
             <div class="main-nav-wrapper">
                 <h2 class="h2">Explore Africa</h2>
                 <nav class="main-nav">
@@ -539,216 +177,7 @@
 
     <script src="/scripts/d3.min.js"></script>
     <script src="/scripts/topojson.min.js"></script>
-    <script>
-
-        let buttonIsClicked = false;
-
-        window.onload = () => {
-
-            d3.select('#toggle-container').style('display', 'block')
-            d3.select('.main-nav-wrapper').style('margin-top', '-4rem')
-
-            const toggleButton = d3.select('#country-view-switch')
-            const isLargeScreen = window.matchMedia('(min-width: 1024px)').matches
-
-            
-            
-            const countryData = d3.select('#country_carousel-view')
-
-            toggleButton.on('click', () => {
-                buttonIsClicked = !buttonIsClicked
-            
-                if( buttonIsClicked === true) {
-                    countryVisual.style("display", "flex")
-                    // d3.zoom().scaleTo(countryVisual, 2)
-                    countryData.style("display", "none")
-                } else {
-                    countryVisual.style("display", "none")
-                    countryData.style("display", "flex")
-                }
-            })
-
-            const countryVisual = d3.select('#country-view').append('svg')
-                .attr('viewBox', '0 0 500 500')
-                .attr('class', 'world-map')
-                .style('display', 'none')
-                .style('margin', 'auto')
-                .style('transform', 'translateX(-1rem)')
-
-            let totalCountriesInAfrica = 55
-            countryVisual.append('pattern')
-                .attr('id', 'pattern')
-                .attr('patternUnits', 'userSpaceOnUse')
-                .attr('width', '3')
-                .attr('height', '3')
-                    .append('rect')
-                    .attr('width', '2')
-                    .attr('height', '2')
-                    .attr('fill', '#e3e8ef')
-            
-            const mapContainer = countryVisual.append('g')
-                // .attr('transform', 'translate(0, 0) scale(2)')
-                // .attr('transform', 'translate(-370,-70) scale(1)')
-
-            const projection = d3.geoOrthographic().scale([357]).translate([166, 250])
-            const pathGenerator = d3.geoPath().projection(projection)
-
-            countryVisual.call(d3.zoom().scaleExtent([0.6, 10]).on('zoom', ({ transform }) => {
-                mapContainer.attr('transform', transform)
-            }))
-
-
-            Promise.all([
-            d3.tsv("/scripts/world-atlas-50m.tsv"),
-            d3.json("/scripts/world-atlas-50m.json")
-            ]).then(([tsvData, topoJSONdata]) => {
-            // console.log(tsvData)
-            const continents = {
-                "Africa": "africa",
-                "Antarctica": "antarctica",
-                "Asia": "asia",
-                "Europe": "europe",
-                "North America": "north-america",
-                "Oceania": "oceania",
-                "Seven seas (open ocean)": "seven-seas",
-                "South America": "south-america"
-            }
-            const countryNames = tsvData.reduce((acc, d) => {
-                acc[d.iso_n3] = [d.name, continents[d.continent]]
-                return acc
-            }, {})
-
-            const countries = topojson.feature(topoJSONdata, topoJSONdata.objects.countries)
-
-            const africa = {
-                480: "Mauritius",
-                690: "Seychelles",
-                450: "Madagascar",
-                174: "Comoros",
-                706: "Somalia",
-                404: "Kenya",
-                834: "Tanzania",
-                454: "Malawi",
-                508: "Mozambique",
-                710: "South Africa",
-                426: "Lesotho",
-                716: "Zimbabwe",
-                748: "Swaziland",
-                231: "Ethiopia",
-                262: "Djibouti",
-                646: "Rwanda",
-                800: "Uganda",
-                108: "Burundi",
-                232: "Eritrea",
-                728: "S. Sudan",
-                729: "Sudan",
-                180: "Dem. Rep. Congo",
-                894: "Zambia",
-                072: "Botswana",
-                024: "Angola",
-                140: "Central African Rep.",
-                516: "Namibia",
-                120: "Cameroon",
-                818: "Egypt",
-                148: "Chad",
-                178: "Congo",
-                266: "Gabon",
-                226: "Eq. Guinea",
-                562: "Niger",
-                566: "Nigeria",
-                434: "Libya",
-                678: "São Tomé and Principe",
-                012: "Algeria",
-                788: "Tunisia",
-                204: "Benin",
-                854: "Burkina Faso",
-                768: "Togo",
-                288: "Ghana",
-                384: "Côte d'Ivoire",
-                430: "Liberia",
-                466: "Mali",
-                504: "Morocco",
-                478: "Mauritania",
-                732: "W. Sahara",
-                686: "Senegal",
-                324: "Guinea",
-                694: "Sierra Leone",
-                270: "Gambia",
-                624: "Guinea-Bissau",
-                132: "Cape Verde",
-            }
-
-            let africanCountryCodes = [480,690,450,174,706,404,834,454,508,710,426,716,748,231,262,646,800,108,232,728,729,180,894,72,24,140,516,120,818,148,178,266,226,562,566,434,678,12,788,204,854,768,288,384,430,466,504,478,732,686,324,694, 270, 624, 132];
-
-            
-            const somalia = countries.features.splice(197, 2)
-            africanCountryCodes.splice(africanCountryCodes.indexOf(706), 1)
-            totalCountriesInAfrica--;
-
-
-            const countrySet = countries.features.reduce((acc, cur, idx) => {
-                let index = africanCountryCodes.indexOf(+cur.id)
-                if (index == -1) {
-                acc.others.push(cur)
-                } else {
-                acc.africa[index] = cur
-                }
-                
-                return acc
-            }, { africa: [...Array(totalCountriesInAfrica)], others: [] })
-            
-            const otherContinents = mapContainer.append('g').selectAll('path').data(countrySet.others).enter()
-
-            otherContinents.append('path')
-                .attr('d', pathGenerator)
-                .attr('class', d => `country region-${countryNames[d.id][1]}`)
-                .append('title')
-                .text(d => `${countryNames[d.id][0]} - ${countryNames[d.id][1]}`)
-
-
-
-            const africaContinent = 
-            mapContainer.append('g').attr('class', 'africa')
-
-            const africaCountries = africaContinent.selectAll('path').data(countrySet.africa).enter()
-                .append('g').attr('class', 'africa__country')
-
-            africaCountries.append('path')
-                .attr('d', pathGenerator)
-                .append('title')
-                .text(d => countryNames[d.id][0])
-            africaCountries.append('circle')
-                .attr('r', 2)
-                .attr('cx', d => pathGenerator.centroid(d)[0])
-                .attr('cy', d => pathGenerator.centroid(d)[1])
-
-            africaCountries.append('text')
-                .text(d => countryNames[d.id][0])
-                .attr('x', d => pathGenerator.centroid(d)[0] + 4)
-                .attr('y', d => pathGenerator.centroid(d)[1] + 1.5)
-                .attr('font-size', '4pt')
-
-
-            const somaliaTerritories = africaContinent.append('g').attr('class', 'africa__country')
-            const somaliland = somalia[0]
-            somaliaTerritories.selectAll('path').data(somalia).enter()
-                .append('path')
-                .attr('d', pathGenerator)
-            somaliaTerritories.append('text').text("Somalia")
-            .attr('x', 661)
-            .attr('y', 231)
-            .attr('font-size', '4pt')
-            somaliaTerritories.append('circle')
-                .attr('r', 2)
-                .attr('cx', 657)
-                .attr('cy', 229.5)
-            })
-        }
-
-        function createMap() {
-            return d3.select('#world-map').append('text').text('Hello').node()
-        }
-
-    </script>
+    <script src="/scripts/index.js"></script>
 </body>
+
 </html>

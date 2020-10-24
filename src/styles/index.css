@@ -1,0 +1,365 @@
+/********************************
+    U T I L I T I E S 
+*********************************/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.visibility_hidden {
+    visibility: hidden;
+    position: absolute;
+    top: -9999rem;
+}
+
+.content-gap {
+    visibility: hidden;
+}
+
+.h2 {
+    text-align: center;
+    font: bold 2rem/1.5 overlock;
+    margin: 0 0 1.5rem 0;
+}
+
+
+
+
+.homepage {
+    font: 1rem/1.5 -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+/* Let footer take remaining space */
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    width: 100%;
+    /* overflow: hidden; */
+}
+
+.homepage__header {
+    text-align: center;
+    margin: 3rem auto;
+    color: rgb(103, 116, 137);
+}
+
+.logo {
+    /* 
+        * For fallback if image does not show up
+        * The width & height is specified as attributes in <img> 
+        * ...so it doesn't controll the fallback text
+        *
+        */
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+
+
+.country-section {
+    margin-bottom: 3rem;
+}
+
+.country-summary {
+    text-align: center;
+
+    position: relative;
+    left: -0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.country-summary::-webkit-details-marker {
+    color: #f3f3f3; 
+}
+
+.country-summary__count {
+    background: #f3f3f3;
+    padding: 0.3rem 1rem 0.4rem;
+    border-radius: 0.3rem;
+}
+
+.country-region {
+    flex: 0 0 10.5rem;
+    height: 15rem;
+    overflow-y: scroll;
+    margin: 0 0.5rem 1rem;
+    background-color: #f3f3f3;
+    border-radius: 0.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.country-region dd {
+    padding: 0.5rem 1rem;
+    line-height: 1;
+}
+
+.country-region dt {
+    background-color: #eee;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    position: sticky;
+
+    /* -1px instead of 0 because of font blurriness & overflow of dt element at the top */
+    top: -1px;  
+} 
+
+.country-view-switch {
+    border: 4px solid white;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background: #ccc;
+
+    /* Center Self */
+    display: block;
+    margin: auto;
+    
+    /* Overlay another section */
+    position: relative;
+    z-index: 10;
+}
+
+
+
+
+
+.main-nav-wrapper {
+    background: #efefef;
+    padding: 3rem 0 6rem;
+    
+    position: relative;
+
+    /* For Overflown ::after */
+    overflow: hidden;
+}
+
+.main-nav-wrapper::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    border-left: 100vw solid transparent;
+    border-bottom: 3rem solid white;
+}
+
+.main-nav {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+.main-nav__item {
+    padding: 0.5rem;
+    background: #ccc;
+    border-radius: 1rem;
+    margin: 0.25rem;
+    width: 8rem;
+    height: 8rem;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.main-nav__item-value {
+    font-size: 2rem;
+    text-align: center;
+}
+
+.main-nav__item-title {
+    margin: 0;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.12rem;
+    font-size: 0.875rem;
+}
+
+
+
+
+.faq-wrapper {
+    max-width: 600px;
+    margin: auto;
+}
+
+.faq {
+    padding: 2rem 3rem;
+    margin-bottom: 2rem;
+}
+
+
+
+
+
+/* M A P */
+
+.world-map {
+    width: 90vw;
+    max-width: 32rem;
+}
+
+.africa-map text {
+    font-size: 0.5rem;
+    fill: #677489;
+}
+
+.africa-map path {
+    fill: url("#pattern");
+}
+
+.africa-map circle {
+    fill: #677489;
+}
+
+.ctry-marker-line {
+    stroke: #677489;
+    stroke-width: 1;
+}
+
+.ctry:hover path {
+    fill: red;
+}
+
+.ctry:hover circle {
+    fill: rgb(255, 0, 0, 0.1);
+}
+
+.ctry:hover text {
+    fill: rebeccapurple;
+}
+
+.html {
+    height: 100%;
+}
+
+
+
+
+.country_carousel-view {
+    display: flex;
+    overflow: auto;
+}
+
+.country_carousel-view::before,
+.country_carousel-view::after {
+    content: "";
+    flex: 0 0 1.5rem;
+}
+
+
+
+.country, .africa__country {
+    fill: lightgreen;
+    stroke: black;
+    stroke-width: 0.1px;
+    cursor: pointer; 
+}
+
+.africa__country {
+    fill: url('#pattern')
+}
+
+.country text, .africa__country text {
+    fill: black;
+    stroke-width: 0;
+    cursor: pointer; 
+    background-color: darkgreen;
+}
+
+.country:hover, .africa__country:hover {
+    fill: red;
+}
+
+.country:hover text, .africa__country:hover text {
+    fill: darkblue;
+}
+
+
+
+
+.footer {
+    padding: 3rem;
+    background: #444;
+    color: white;
+
+    flex: 1;
+}
+
+@media screen and (min-width: 1000px) {
+
+    .homepage__header {
+        display: flex;
+        margin: 2rem 3rem 0;
+        text-align: left;
+    }
+
+    .logo {
+        margin-right: 1rem;
+        position: relative;
+        top: -0.4rem;
+    }
+
+    .country-section {
+        margin-bottom: 0;
+    }
+
+    .country_carousel-view {
+        width: 40.5rem;
+        flex-flow: row wrap;
+        justify-content: flex-end;
+    }
+
+    .country_carousel-view::after,
+    .country_carousel-view::before {
+        flex: 0 0 0;
+    }
+
+    .country-summary {
+        left: 0;
+    }
+
+    .main-nav {
+        max-width: 22rem;
+    }
+
+    .country-section {
+        position: relative;
+        top: -3rem;
+    }
+
+    .country-view-switch {
+        position: absolute;
+        top: -0.5rem;
+        right: -1.5rem;
+    }
+
+    
+
+    .data-section {
+        display: flex;
+        width: 100%;
+        padding: 1.5rem 5%;
+        justify-content: space-between;
+        align-items: center;
+        flex-flow: row-reverse nowrap;
+    }
+
+    .main-nav-wrapper {
+        background: transparent;
+    }
+
+
+    .first-fold {
+        background: #fafafa;
+        position: relative;
+    }
+
+    .first-fold::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        border-left: 90vw solid transparent;
+        border-bottom: 3rem solid white;
+    }
+}
