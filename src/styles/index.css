@@ -8,6 +8,11 @@
     box-sizing: border-box;
 }
 
+.html {
+    height: 100%;
+}
+
+
 .visibility_hidden {
     visibility: hidden;
     position: absolute;
@@ -22,6 +27,7 @@
     text-align: center;
     font: bold 2rem/1.5 overlock;
     margin: 0 0 1.5rem 0;
+    color: #2c6dbc;
 }
 
 
@@ -29,6 +35,7 @@
 
 .homepage {
     font: 1rem/1.5 -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #3a4047;
 
 /* Let footer take remaining space */
     display: flex;
@@ -37,6 +44,14 @@
     width: 100%;
     /* overflow: hidden; */
 }
+
+.first-fold {
+    background: #f8f8ff;
+    background: linear-gradient(135deg, #f8f8ff, #f6fafe, #f8f8ff);
+    position: relative;
+    margin-bottom: 3rem;
+}
+
 
 .homepage__header {
     text-align: center;
@@ -74,31 +89,48 @@
 }
 
 .country-summary__count {
-    background: #f3f3f3;
+    background: #f9eae5;
+    color: #782000;
     padding: 0.3rem 1rem 0.4rem;
     border-radius: 0.3rem;
 }
 
 .country-region {
-    flex: 0 0 10.5rem;
+    flex: 0 0 10rem;
     height: 15rem;
-    overflow-y: scroll;
+    overflow: auto;
     margin: 0 0.5rem 1rem;
-    background-color: #f3f3f3;
+    background-color: #f9f9fa;
     border-radius: 0.5rem;
     padding-bottom: 1.5rem;
+    border: 1px solid #dee1e5;
+}
+
+.country-region::-webkit-scrollbar {
+    width: 0.5rem;
+    background: #e4effb;
+    border-radius: 0 1rem 1rem 0;
+}
+
+.country-region::-webkit-scrollbar-thumb {
+    background-color: #abb4be;
+    border-radius: 1rem;
 }
 
 .country-region dd {
     padding: 0.5rem 1rem;
     line-height: 1;
+    color: #636d7a;
+    border-bottom: 1px dotted #dee1e5;
 }
 
 .country-region dt {
-    background-color: #eee;
-    padding: 1rem;
+    background-color: #eceef0;
+    color: #1a406e;
+    padding: 0.75rem 1rem;
+    white-space: nowrap;
     margin-bottom: 0.5rem;
-    font-weight: bold;
+    /* font-weight: bold; */
     position: sticky;
 
     /* -1px instead of 0 because of font blurriness & overflow of dt element at the top */
@@ -106,11 +138,13 @@
 } 
 
 .country-view-switch {
-    border: 4px solid white;
-    border-radius: 50%;
+    border: 4px solid #f8f8ff;
+    border-radius: 0.8rem;
     width: 40px;
     height: 40px;
-    background: #ccc;
+    background: #1a406e;
+    color: #f8f8ff;
+    cursor: pointer;
 
     /* Center Self */
     display: block;
@@ -121,12 +155,24 @@
     z-index: 10;
 }
 
+.country-view-switch:hover {
+    /* background: #1a406e;
+    color: #f8f8ff; */
+    box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.1), 
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    background-color: #92A7F1;
+    color: white;
+}
+
+.country-view-switch:focus {
+    border-color: white;
+    outline: 0;
+}
 
 
 
-
-.main-nav-wrapper {
-    background: #efefef;
+.main-nav {
+    background: #2c6dbc;
     padding: 3rem 0 6rem;
     
     position: relative;
@@ -135,7 +181,7 @@
     overflow: hidden;
 }
 
-.main-nav-wrapper::after {
+.main-nav::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -143,7 +189,14 @@
     border-bottom: 3rem solid white;
 }
 
-.main-nav {
+.main-nav__title {
+    font: bold 2rem/1.5 overlock, sans-serif;
+    color: #f8f8ff;
+    text-align-last: center;
+    margin-bottom: 1.5rem;
+}
+
+.main-nav__list {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
@@ -151,7 +204,8 @@
 
 .main-nav__item {
     padding: 0.5rem;
-    background: #ccc;
+    background: #fbfefc;
+    border: 1px solid #ebeeec;
     border-radius: 1rem;
     margin: 0.25rem;
     width: 8rem;
@@ -162,9 +216,23 @@
     text-decoration: none;
 }
 
+.main-nav__item:hover {
+    box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.1), 
+        0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    background-color: #92A7F1;
+}
+
+.main-nav__item:hover .main-nav__item-value,
+.main-nav__item:hover .main-nav__item-title {
+    color: white;
+}
+
+
 .main-nav__item-value {
     font-size: 2rem;
     text-align: center;
+    color: #007e20;
+    font: bold 1.8rem/1.5 overlock;
 }
 
 .main-nav__item-title {
@@ -172,20 +240,18 @@
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 0.12rem;
-    font-size: 0.875rem;
+    font-size: 0.75rem;
+    color: #597260;
+    font-weight: bold;
 }
 
 
 
-
-.faq-wrapper {
-    max-width: 600px;
-    margin: auto;
-}
 
 .faq {
-    padding: 2rem 3rem;
-    margin-bottom: 2rem;
+    margin: 0 auto 6rem;
+    width: 80%;
+    max-width: 600px;
 }
 
 
@@ -199,40 +265,135 @@
     max-width: 32rem;
 }
 
-.africa-map text {
-    font-size: 0.5rem;
-    fill: #677489;
+.country, .africa__country {
+    fill: #dee1e5;
+    stroke: white;
+    stroke-width: 0.5px;
+    cursor: pointer; 
 }
 
-.africa-map path {
-    fill: url("#pattern");
+.africa__country {
+    stroke-width: 1px;
 }
 
-.africa-map circle {
-    fill: #677489;
+.country text, .africa__country text {
+    fill: #1a406e;
+    stroke-width: 0;
+    cursor: pointer; 
+    background-color: darkgreen;
 }
 
-.ctry-marker-line {
-    stroke: #677489;
-    stroke-width: 1;
+.africa__country circle {
+    fill: #cc3600;
+    stroke-width: 1px;
+    stroke: #faeae5;
 }
 
-.ctry:hover path {
-    fill: red;
+.country:hover, .africa__country:hover {
+    fill: #3684E4;
+    fill: #92A7F1;
+    fill:#a4c7f2;
+    stroke: #a4c7f2;
+    /* fill: #00D236; */
 }
 
-.ctry:hover circle {
-    fill: rgb(255, 0, 0, 0.1);
+.country:hover text, .africa__country:hover text {
+    fill: #3a4047;
+    fill: #cc3600;
 }
 
-.ctry:hover text {
-    fill: rebeccapurple;
+.africa__country:hover .annotation {
+    fill: #eceef0;
 }
 
-.html {
-    height: 100%;
+
+.africa-regions {
+    padding: 0 1rem;
+    display: none;
+    max-width: 30rem;
+    margin: auto;
 }
 
+.show-region.js-active .africa-regions {
+    display: block;
+}
+
+.region {
+    margin: 0 1rem;
+}
+
+.na::before,
+.wa::before,
+.ca::before,
+.ea::before,
+.sa::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    margin-right: 0.5rem;
+}
+
+.na::before {
+    background: #f2cabd;
+}
+
+.wa::before {
+    background: #acf0bd;
+}
+
+.ca::before {
+    background: #bbd5f6;
+}
+
+.ea::before {
+    background: #6be5e9;
+}
+
+.sa::before {
+    background: #bfe05c;
+}
+
+.wa::before {
+    background: #acf0bd;
+}
+
+.show-region .northern-africa {
+    fill: #f2cabd;
+}
+
+.show-region .western-africa {
+    fill: #acf0bd;
+}
+
+.show-region .middle-africa {
+    fill: #bbd5f6;
+}
+
+.show-region .eastern-africa {
+    fill: #6be5e9;
+}
+
+.show-region .southern-africa {
+    fill: #bfe05c;
+}
+
+.segment-input,
+.world-map {
+    display: none;
+}
+
+.js-active .segment-input {
+    display: initial;
+}
+
+.js-active .world-map {
+    display: flex;
+}
+
+.js-active .country_carousel-view {
+    display: none
+}
 
 
 
@@ -248,39 +409,69 @@
 }
 
 
-
-.country, .africa__country {
-    fill: lightgreen;
-    stroke: black;
-    stroke-width: 0.1px;
-    cursor: pointer; 
+.faq-entry {
+    border-top: 1px solid #dee1e5;
+    /* padding: 1rem; */
 }
 
-.africa__country {
-    fill: url('#pattern')
+.faq-entry:last-child {
+    border-bottom: 1px solid #dee1e5;
 }
 
-.country text, .africa__country text {
-    fill: black;
-    stroke-width: 0;
-    cursor: pointer; 
-    background-color: darkgreen;
+.faq-entry__question {
+    padding: 1rem;
+    position: relative;
+    cursor: pointer;
+    color: #636d7a;
 }
 
-.country:hover, .africa__country:hover {
-    fill: red;
+.faq-entry__question::before,
+.faq-entry__question::after {
+    content: '';
+    width: 0.75rem;
+    height: 2px;
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    background-color: #d96842;
+    transform: translateY(-50%);
+    transition: transform .2s ease-in-out;
 }
 
-.country:hover text, .africa__country:hover text {
-    fill: darkblue;
+.faq-entry__question:hover {
+    background: #f6fafe;
+    /* color: #1a406e; */
+    font-weight: bold;
 }
 
+.faq-entry__question:focus {
+    outline: 0;
+}
 
+.faq-entry__question::after {
+    transform: translateY(-50%) rotate(90deg);
+}
+
+.faq-entry[open] .faq-entry__question {
+    font-weight: bold;
+}
+
+.faq-entry[open] .faq-entry__question::after {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.faq-entry__answer {
+    padding: 0.5rem 2rem 1.5rem ;
+}
+
+.faq-entry__question::-webkit-details-marker {
+    display: none;
+}
 
 
 .footer {
     padding: 3rem;
-    background: #444;
+    background: #1a406e;
     color: white;
 
     flex: 1;
@@ -319,8 +510,16 @@
         left: 0;
     }
 
-    .main-nav {
+    .main-nav__title {
+        color: #2c6dbc;
+    }
+
+    .main-nav__list {
         max-width: 22rem;
+    }
+
+    .main-nav::after {
+        border-bottom-color: #d1f7db;
     }
 
     .country-section {
@@ -330,7 +529,7 @@
 
     .country-view-switch {
         position: absolute;
-        top: -0.5rem;
+        top: 0.5rem;
         right: -1.5rem;
     }
 
@@ -345,14 +544,13 @@
         flex-flow: row-reverse nowrap;
     }
 
-    .main-nav-wrapper {
+    .main-nav {
         background: transparent;
     }
 
-
-    .first-fold {
-        background: #fafafa;
-        position: relative;
+    .country-view-switch {
+        background: #d1f7da;
+        color: #007e20;
     }
 
     .first-fold::after {

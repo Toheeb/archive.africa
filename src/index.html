@@ -34,8 +34,10 @@
             <section id="country-section" class="country-section">
                 <h2 class="text-center visibility_hidden ">African Countries by Region</h2>
                 <details open>
-                    <summary class="country-summary"> <span class="country-summary__count">5 Regions</span> <span
-                            class="content-gap">, </span> <span class="country-summary__count">55 Countries</span>
+                    <summary class="country-summary"> 
+                        <label id="map-region" class="country-summary__count"> <input type="radio" name="map" id="region-check" class="segment-input"> 5 Regions</label> 
+                        <span id="map-country" class="content-gap">, </span> 
+                        <label class="country-summary__count"> <input type="radio" name="map" id="country-check" class="segment-input" checked> 55 Countries</label>
                     </summary>
                     <div id="country-view">
                         <dl id="country_carousel-view" class="country_carousel-view">
@@ -46,9 +48,10 @@
                                 <dd>Central African Republic</dd>
                                 <dd>Chad</dd>
                                 <dd>Congo Republic</dd>
+                                <dd>DR Congo</dd>
                                 <dd>Equitorial Guinea</dd>
                                 <dd>Gabon</dd>
-                                <dd>Sao Tome and Principe</dd>
+                                <dd>São Tomé and Principe</dd>
                             </div>
 
                             <div class="country-region">
@@ -99,7 +102,7 @@
                                 <dd>Benin</dd>
                                 <dd>Burkina Faso</dd>
                                 <dd>Cabo Verde</dd>
-                                <dd>Cote d'Ivoire</dd>
+                                <dd>Côte d'Ivoire</dd>
                                 <dd>Gambia</dd>
                                 <dd>Ghana</dd>
                                 <dd>Guinea</dd>
@@ -114,6 +117,13 @@
                             </div>
                         </dl>
                     </div>
+                    <div class="africa-regions">
+                        <span class="na region">Northern Africa</span>
+                        <span class="wa region">Western Africa</span>
+                        <span class="ca region">Central Africa</span>
+                        <span class="ea region">Eastern Africa</span>
+                        <span class="sa region">Southern Africa</span>
+                    </div>
                     <button class="country-view-switch" id="country-view-switch">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20"
                             xmlns="http://www.w3.org/2000/svg">
@@ -124,9 +134,9 @@
                 </details>
             </section>
 
-            <div class="main-nav-wrapper">
-                <h2 class="h2">Explore Africa</h2>
-                <nav class="main-nav">
+            <div class="main-nav">
+                <h2 class="main-nav__title">Explore Africa</h2>
+                <nav class="main-nav__list">
                     <a href="" class="main-nav__item">
                         <span class="main-nav__item-value">22M+</span>
                         <span class="main-nav__item-title">Population</span>
@@ -152,21 +162,29 @@
         <h2 class="h2">FAQ</h2>
 
         <div class="faq-wrapper">
-            <details>
-                <summary>Is Africa a Country?</summary>
-                No. Africa is a continent. In fact, it is the second largest continent in both Land Area & Population
+            <details class="faq-entry">
+                <summary class="faq-entry__question">Is Africa a Country?</summary>
+                <div class="faq-entry__answer">
+                    No. Africa is a continent. In fact, it is the second largest continent in both Land Area & Population
+                </div>
             </details>
-            <details>
-                <summary>Is Africa a Country?</summary>
-                No. Africa is a continent. In fact, it is the second largest continent in both Land Area & Population
+            <details class="faq-entry">
+                <summary class="faq-entry__question">Is Africa a Country?</summary>
+                <div class="faq-entry__answer">
+                    No. Africa is a continent. In fact, it is the second largest continent in both Land Area & Population
+                </div>
             </details>
-            <details>
-                <summary>Is Africa a Country?</summary>
-                No. Africa is a continent. In fact, it is the second largest continent in both Land Area & Population
+            <details class="faq-entry">
+                <summary class="faq-entry__question">Is Africa a Country?</summary>
+                <div class="faq-entry__answer">
+                    No. Africa is a continent. In fact, it is the second largest continent in both Land Area & Population
+                </div>
             </details>
-            <details>
-                <summary>Is Africa a Country?</summary>
-                No. Africa is a continent. In fact, it is the second largest continent in both Land Area & Population
+            <details class="faq-entry">
+                <summary class="faq-entry__question">Is Africa a Country?</summary>
+                <div class="faq-entry__answer">
+                    No. Africa is a continent. In fact, it is the second largest continent in both Land Area & Population
+                </div>
             </details>
         </div>
     </div>

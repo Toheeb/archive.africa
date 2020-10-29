@@ -3,12 +3,21 @@ let buttonIsClicked = false;
 window.onload = () => {
 
     d3.select('#toggle-container').style('display', 'block')
-    d3.select('.main-nav-wrapper').style('margin-top', '-4rem')
+    d3.select('.main-nav').style('margin-top', '-4rem')
 
     const toggleButton = d3.select('#country-view-switch')
+    const regionButton = d3.select('#region-check')
+    const countryButton = d3.select('#country-check')
     const isLargeScreen = window.matchMedia('(min-width: 1024px)').matches
 
 
+    regionButton.on('click', () => {
+        document.getElementById('country-section').classList.add('show-region')
+    })
+    
+    countryButton.on('click', () => {
+        document.getElementById('country-section').classList.remove('show-region')
+    })
 
     const countryData = d3.select('#country_carousel-view')
 
@@ -16,41 +25,35 @@ window.onload = () => {
         buttonIsClicked = !buttonIsClicked
 
         if (buttonIsClicked === true) {
-            countryVisual.style("display", "flex")
-            // d3.zoom().scaleTo(countryVisual, 2)
-            countryData.style("display", "none")
+            document.getElementById('country-section').classList.add('js-active')
+            // countryVisual.style("display", "flex")
+            // // d3.zoom().scaleTo(countryVisual, 2)
+            // countryData.style("display", "none")
         } else {
-            countryVisual.style("display", "none")
-            countryData.style("display", "flex")
+            document.getElementById('country-section').classList.remove('js-active')
+            // countryVisual.style("display", "none")
+            // countryData.style("display", "flex")
         }
     })
 
     const countryVisual = d3.select('#country-view').append('svg')
         .attr('viewBox', '0 0 500 500')
         .attr('class', 'world-map')
-        .style('display', 'none')
-        .style('margin', 'auto')
-        .style('transform', 'translateX(-1rem)')
+        .attr('id', 'world-map')
+        // .style('display', 'none')
+        .style('margin', '0 auto 1rem')
 
     let totalCountriesInAfrica = 55
-    countryVisual.append('pattern')
-        .attr('id', 'pattern')
-        .attr('patternUnits', 'userSpaceOnUse')
-        .attr('width', '3')
-        .attr('height', '3')
-        .append('rect')
-        .attr('width', '2')
-        .attr('height', '2')
-        .attr('fill', '#e3e8ef')
 
     const mapContainer = countryVisual.append('g')
     // .attr('transform', 'translate(0, 0) scale(2)')
     // .attr('transform', 'translate(-370,-70) scale(1)')
 
-    const projection = d3.geoOrthographic().scale([357]).translate([166, 250])
+    // const projection = d3.geoOrthographic().scale([300])
+    const projection = d3.geoOrthographic().scale([360]).translate([150, 250])
     const pathGenerator = d3.geoPath().projection(projection)
 
-    countryVisual.call(d3.zoom().scaleExtent([0.6, 10]).on('zoom', ({ transform }) => {
+    countryVisual.call(d3.zoom().scaleExtent([0.5, 5]).translateExtent([[-250, -150], [550, 650]]).on('zoom', ({ transform }) => {
         mapContainer.attr('transform', transform)
     }))
 
@@ -71,7 +74,74 @@ window.onload = () => {
             "South America": "south-america"
         }
         const countryNames = tsvData.reduce((acc, d) => {
-            acc[d.iso_n3] = [d.name, continents[d.continent]]
+
+            let result = {
+                country: d.name,
+                continent: continents[d.continent],
+                subregion: d.subregion
+            }
+
+            if (d.continent == 'Africa') {
+                switch (d.name) {
+                    case 'Angola':
+                        result.subregion = 'Southern Africa'
+                        break
+
+                    case 'Burundi':
+                        result.subregion = 'Middle Africa'
+                        break
+
+                    case 'Dem. Rep. Congo':
+                        result.country = 'DR Congo'
+                        break
+
+                    case 'Congo':
+                        result.country = "Congo Republic"
+                        break
+
+                    case 'Cape Verde':
+                        result.country = 'Cabo Verde'
+                        break
+                 
+                    case 'W. Sahara':
+                        result.country = 'Sahrawi Republic'
+                        break
+
+                    case 'Mozambique':
+                        result.subregion = 'Southern Africa'
+                        break
+
+                    case 'Malawi':
+                        result.subregion = 'Southern Africa'
+                        break
+
+                    case 'Mauritania':
+                        result.subregion = 'Northern Africa'
+                        break
+
+                    case 'Sudan':
+                        result.subregion = 'Eastern Africa'
+                        break
+
+                    case 'Zambia':
+                        result.subregion = 'Southern Africa'
+                        break
+
+                    case 'Zimbabwe':
+                        result.subregion = 'Southern Africa'
+                        break
+
+                    case 'S. Sudan':
+                        result.country = 'South Sudan'
+                        break
+
+                    case 'Swaziland':
+                        result.country = 'Eswatini'
+                        break
+                }
+            }
+            // acc[d.iso_n3] = [d.name, continents[d.continent]]
+            acc[d.iso_n3] = result
             return acc
         }, {})
 
@@ -85,8 +155,8 @@ window.onload = () => {
             706: "Somalia",
             404: "Kenya",
             834: "Tanzania",
-            454: "Malawi",
             508: "Mozambique",
+            454: "Malawi",
             710: "South Africa",
             426: "Lesotho",
             716: "Zimbabwe",
@@ -135,7 +205,8 @@ window.onload = () => {
             132: "Cape Verde",
         }
 
-        let africanCountryCodes = [480, 690, 450, 174, 706, 404, 834, 454, 508, 710, 426, 716, 748, 231, 262, 646, 800, 108, 232, 728, 729, 180, 894, 72, 24, 140, 516, 120, 818, 148, 178, 266, 226, 562, 566, 434, 678, 12, 788, 204, 854, 768, 288, 384, 430, 466, 504, 478, 732, 686, 324, 694, 270, 624, 132];
+        // Used to sort the map paths so each label overlap correctly
+        let africanCountryCodes = [480, 690, 450, 174, 706, 404, 834, 508, 454, 710, 426, 716, 748, 231, 262, 646, 800, 108, 232, 728, 729, 180, 894, 72, 24, 140, 516, 120, 818, 148, 178, 266, 226, 562, 566, 434, 678, 12, 788, 204, 854, 768, 288, 384, 430, 466, 504, 478, 732, 686, 324, 694, 270, 624, 132];
 
 
         const somalia = countries.features.splice(197, 2)
@@ -144,7 +215,9 @@ window.onload = () => {
 
 
         const countrySet = countries.features.reduce((acc, cur, idx) => {
+
             let index = africanCountryCodes.indexOf(+cur.id)
+
             if (index == -1) {
                 acc.others.push(cur)
             } else {
@@ -154,51 +227,57 @@ window.onload = () => {
             return acc
         }, { africa: [...Array(totalCountriesInAfrica)], others: [] })
 
+        // console.log("------------", countrySet.others)
         const otherContinents = mapContainer.append('g').selectAll('path').data(countrySet.others).enter()
 
         otherContinents.append('path')
             .attr('d', pathGenerator)
-            .attr('class', d => `country region-${countryNames[d.id][1]}`)
+            .attr('class', 'country')
             .append('title')
-            .text(d => `${countryNames[d.id][0]} - ${countryNames[d.id][1]}`)
+            .text(d => `${countryNames[d.id].country} - ${countryNames[d.id].continent}`)
 
 
+
+        const somaliaTerritories = mapContainer.append('g').attr('class', 'africa__country eastern-africa')
+        const somaliland = somalia[0]
+        somaliaTerritories.selectAll('path').data(somalia).enter()
+            .append('path')
+            .attr('d', pathGenerator)
+        somaliaTerritories.append('text').text("Somalia")
+            .attr('x', 414)
+            .attr('y', 221.5)
+            .attr('font-size', '6pt')
+        somaliaTerritories.append('circle')
+            .attr('r', 2)
+            .attr('cx', 410)
+            .attr('cy', 220)
 
         const africaContinent =
             mapContainer.append('g').attr('class', 'africa')
 
         const africaCountries = africaContinent.selectAll('path').data(countrySet.africa).enter()
-            .append('g').attr('class', 'africa__country')
+            .append('g')
+                .attr('class',  d => `africa__country ${countryNames[d.id].subregion.replace(' ', '-').toLowerCase()}`)
 
         africaCountries.append('path')
             .attr('d', pathGenerator)
             .append('title')
-            .text(d => countryNames[d.id][0])
+            .text(d => countryNames[d.id].country);
+
         africaCountries.append('circle')
             .attr('r', 2)
             .attr('cx', d => pathGenerator.centroid(d)[0])
             .attr('cy', d => pathGenerator.centroid(d)[1])
 
         africaCountries.append('text')
-            .text(d => countryNames[d.id][0])
+            .text(d => countryNames[d.id].country)
             .attr('x', d => pathGenerator.centroid(d)[0] + 4)
             .attr('y', d => pathGenerator.centroid(d)[1] + 1.5)
-            .attr('font-size', '4pt')
+            .attr('font-size', '6pt')
 
+        
 
-        const somaliaTerritories = africaContinent.append('g').attr('class', 'africa__country')
-        const somaliland = somalia[0]
-        somaliaTerritories.selectAll('path').data(somalia).enter()
-            .append('path')
-            .attr('d', pathGenerator)
-        somaliaTerritories.append('text').text("Somalia")
-            .attr('x', 661)
-            .attr('y', 231)
-            .attr('font-size', '4pt')
-        somaliaTerritories.append('circle')
-            .attr('r', 2)
-            .attr('cx', 657)
-            .attr('cy', 229.5)
+        
     })
 }
 
