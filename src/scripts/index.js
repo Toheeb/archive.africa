@@ -3,9 +3,12 @@ let buttonIsClicked = false;
 window.onload = () => {
 
     d3.select('#toggle-container').style('display', 'block')
-    d3.select('.main-nav').style('margin-top', '-4rem')
+    // d3.select('.main-nav').style('margin-top', '-4rem')
 
     const toggleButton = d3.select('#country-view-switch')
+    toggleButton.style('display', 'block')
+    toggleButton.style('margin', '1rem auto -4rem')
+
     const regionButton = d3.select('#region-check')
     const countryButton = d3.select('#country-check')
     const isLargeScreen = window.matchMedia('(min-width: 1024px)').matches
